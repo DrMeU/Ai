@@ -1,0 +1,140 @@
+#index.html
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NMap - Network Scanner</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.10.11/iconfont/material-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .bg-gradient {
+      background: linear-gradient(135deg, #4CAF50, #2196F3);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #4CAF50, #2196F3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .animate-wiggle {
+      animation: wiggle 2.5s infinite;
+    }
+    @keyframes wiggle {
+      0% { transform: rotate(0deg); }
+      80% { transform: rotate(0deg); }
+      85% { transform: rotate(5deg); }
+      95% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen bg-gradient flex flex-col items-center justify-center">
+    <div class="container mx-auto px-4 py-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+      <div class="flex flex-col items-center">
+        <h1 class="text-4xl font-bold text-gradient mb-4">NMap</h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">Powerful network scanning and discovery tool</p>
+        <div class="flex w-full max-w-md space-x-4 mb-8">
+          <input type="text" id="targetInput" placeholder="Enter target IP or domain" class="input input-bordered w-full max-w-xs" />
+          <button class="btn btn-primary animate-wiggle" onclick="performScan()">
+            <i class="material-icons">search</i>
+            Scan
+          </button>
+        </div>
+        <div class="tabs tabs-boxed">
+          <a href="#" class="tab tab-active" onclick="updateScanType('quick')">Quick Scan</a>
+          <a href="#" class="tab" onclick="updateScanType('full')">Full Scan</a>
+          <a href="#" class="tab" onclick="updateScanType('vulnerability')">Vulnerability Scan</a>
+        </div>
+        <div class="mt-8 w-full">
+          <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title">Scan Results</h2>
+              <div class="overflow-x-auto">
+                <table class="table w-full" id="resultsTable">
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>Port</th>
+                      <th>Service</th>
+                      <th>Version</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let scanType = 'quick';
+
+    function updateScanType(type) {
+      scanType = type;
+      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('tab-active'));
+      document.querySelector(`.tab:nth-of-type(${['quick', 'full', 'vulnerability'].indexOf(type) + 1})`).classList.add('tab-active');
+    }
+
+    function performScan() {
+      const targetInput = document.getElementById('targetInput');
+      const target = targetInput.value.trim();
+      if (target !== '') {
+        const resultsTable = document.getElementById('resultsTable');
+        resultsTable.querySelectorAll('tbody tr').forEach(row => row.remove());
+
+        // Simulate scan results
+        const scanResults = [
+          { host: '192.168.1.1', port: 80, service: 'HTTP', version: 'Apache 2.4.41' },
+          { host: '192.168.1.100', port: 22, service: 'SSH', version: 'OpenSSH 8.2p1' },
+          { host: 'example.com', port: 443, service: 'HTTPS', version: 'nginx 1.18.0' }
+        ];
+
+        scanResults.forEach(result => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${result.host}</td>
+            <td>${result.port}</td>
+            <td>${result.service}</td>
+            <td>${result.version}</td>
+          `;
+          resultsTable.querySelector('tbody').appendChild(row);
+        });
+
+        targetInput.value = '';
+      }
+    }
+
+    // Scroll Reveal Animation
+    ScrollReveal().reveal('.container', { 
+      delay: 200,
+      distance: '50px',
+      origin: 'bottom',
+      opacity: 0,
+      duration: 800,
+      reset: true
+    });
+
+    // GSAP Animation
+    gsap.from('.animate-wiggle', {
+      duration: 2.5,
+      repeat: -1,
+      ease: 'power1.inOut',
+      rotation: 5,
+      yoyo: true
+    });
+  </script>
+</body>
+</html>
