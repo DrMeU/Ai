@@ -1,0 +1,98 @@
+#index.html
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NMap - Network Scanner</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/daisyui@2.51.5/dist/full.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.10.11/iconfont/material-icons.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+    .bg-gradient {
+      background: linear-gradient(135deg, #4CAF50, #2196F3);
+    }
+    .text-gradient {
+      background: linear-gradient(135deg, #4CAF50, #2196F3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .animate-wiggle {
+      animation: wiggle 2.5s infinite;
+    }
+    @keyframes wiggle {
+      0% { transform: rotate(0deg); }
+      80% { transform: rotate(0deg); }
+      85% { transform: rotate(5deg); }
+      95% { transform: rotate(-5deg); }
+      100% { transform: rotate(0deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="min-h-screen bg-gradient flex flex-col items-center justify-center">
+    <div class="container mx-auto px-4 py-8 bg-white dark:bg-gray-800 rounded-lg shadow-lg">
+      <div class="flex flex-col items-center">
+        <h1 class="text-4xl font-bold text-gradient mb-4">NMap</h1>
+        <p class="text-gray-600 dark:text-gray-400 mb-8">Powerful network scanning and discovery tool</p>
+        <div class="flex w-full max-w-md space-x-4 mb-8">
+          <input type="text" placeholder="Enter target IP or domain" class="input input-bordered w-full max-w-xs" />
+          <button class="btn btn-primary animate-wiggle">
+            <i class="material-icons">search</i>
+            Scan
+          </button>
+        </div>
+        <div class="tabs tabs-boxed">
+          <a href="#" class="tab tab-active">Quick Scan</a>
+          <a href="#" class="tab">Full Scan</a>
+          <a href="#" class="tab">Vulnerability Scan</a>
+        </div>
+        <div class="mt-8 w-full">
+          <div class="card bg-base-100 shadow-xl">
+            <div class="card-body">
+              <h2 class="card-title">Scan Results</h2>
+              <div class="overflow-x-auto">
+                <table class="table w-full">
+                  <thead>
+                    <tr>
+                      <th>Host</th>
+                      <th>Port</th>
+                      <th>Service</th>
+                      <th>Version</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>192.168.1.1</td>
+                      <td>80</td>
+                      <td>HTTP</td>
+                      <td>Apache 2.4.41</td>
+                    </tr>
+                    <tr>
+                      <td>192.168.1.100</td>
+                      <td>22</td>
+                      <td>SSH</td>
+                      <td>OpenSSH 8.2p1</td>
+                    </tr>
+                    <tr>
+                      <td>example.com</td>
+                      <td>443</td>
+                      <td>HTTPS</td>
+                      <td>nginx 1.18.0</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
